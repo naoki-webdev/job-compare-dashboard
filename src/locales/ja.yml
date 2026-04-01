@@ -1,0 +1,123 @@
+ja:
+  app:
+    title: "求人比較ダッシュボード"
+    subtitle: "応募先の比較、進捗管理、CSV出力を一つの画面で完結できるダッシュボード"
+
+  common:
+    loading: "読み込み中..."
+    no_data: "-"
+
+  actions:
+    create_job: "新規求人を追加"
+    edit_scoring: "スコア設定"
+    edit_job: "求人を編集"
+    delete_job: "削除"
+    save: "保存"
+    saving: "保存中..."
+    cancel: "キャンセル"
+    export_csv: "CSV出力"
+    clear_filters: "条件をクリア"
+
+  filters:
+    keyword: "キーワード"
+    keyword_placeholder: "会社名 / 職種 / 技術スタック / メモ"
+    status: "選考ステータス"
+    work_style: "働き方"
+    result_summary: "%{count}件を表示中 / 全%{total}件"
+
+  jobs:
+    section_title: "求人一覧"
+    section_description: "スコア、働き方、選考ステータスを横断して比較できます。行をクリックすると詳細とステータス更新を確認できます。"
+    empty: "条件に一致する求人がありません。"
+    empty_hint: "キーワードやフィルタ条件をゆるめて再検索してください。"
+    table:
+      company: "会社名"
+      position: "職種"
+      status: "選考ステータス"
+      work_style: "働き方"
+      salary: "年収レンジ"
+      score: "スコア"
+      updated_at: "更新日時"
+    detail:
+      empty: "求人を選択すると詳細が表示されます。"
+      helper: "ステータス更新や詳細メモの確認はこちらで行えます。"
+      status: "選考ステータス"
+      work_style: "働き方"
+      employment_type: "雇用形態"
+      salary: "年収"
+      tech_stack: "技術スタック"
+      location: "勤務地"
+      notes: "メモ"
+      score: "スコア"
+      updated_at: "更新日時"
+      delete_confirm: "この求人を削除しますか？"
+    form:
+      create_title: "求人を新規作成"
+      edit_title: "求人を編集"
+      helper: "応募先の比較に必要な情報を登録します。必須項目を入力して保存してください。"
+      company_name: "会社名"
+      position: "職種"
+      status: "選考ステータス"
+      work_style: "働き方"
+      employment_type: "雇用形態"
+      salary_min: "年収下限"
+      salary_max: "年収上限"
+      tech_stack: "技術スタック"
+      location: "勤務地"
+      notes: "メモ"
+    salary_range: "¥%{min} - %{max}"
+    score_label: "おすすめ度"
+  scoring:
+    title: "スコア設定"
+    helper: "おすすめ度の重み付け基準を編集できます。保存すると既存求人のスコアも再計算されます。"
+    remote_section: "働き方"
+    stack_section: "技術スタック"
+    salary_section: "年収条件"
+    full_remote_weight: "フルリモート加点"
+    hybrid_weight: "ハイブリッド加点"
+    onsite_weight: "出社時の補正"
+    rails_weight: "Rails 加点"
+    typescript_weight: "TypeScript 加点"
+    high_salary_max_threshold: "高年収の閾値"
+    high_salary_bonus: "高年収ボーナス"
+    low_salary_min_threshold: "低年収の閾値"
+    low_salary_penalty: "低年収ペナルティ"
+  summary:
+    total: "表示中の求人"
+    remote_friendly: "リモート寄り"
+    active_pipeline: "選考進行中"
+    high_score: "高スコア"
+    total_caption: "現在の検索条件に一致する件数"
+    remote_friendly_caption: "フルリモート・ハイブリッドの合計"
+    active_pipeline_caption: "気になる / 応募済み / 面接中"
+    high_score_caption: "スコア50以上"
+
+  errors:
+    fetch_jobs: "求人一覧の取得に失敗しました。"
+    fetch_job_detail: "求人詳細の取得に失敗しました。"
+    create_job: "求人の新規作成に失敗しました。"
+    delete_job: "求人の削除に失敗しました。"
+    fetch_scoring: "スコア設定の取得に失敗しました。"
+    update_status: "ステータス更新に失敗しました。"
+    update_job: "求人の更新に失敗しました。"
+    update_scoring: "スコア設定の更新に失敗しました。"
+
+  validation:
+    required: "入力してください。"
+    non_negative: "0以上の値を入力してください。"
+    salary_range: "年収上限は年収下限以上にしてください。"
+
+  enums:
+    job_status:
+      interested: "気になる"
+      applied: "応募済み"
+      interviewing: "面接中"
+      offer: "内定"
+      rejected: "見送り"
+    work_style:
+      full_remote: "フルリモート"
+      hybrid: "ハイブリッド"
+      onsite: "出社"
+    employment_type:
+      full_time: "正社員"
+      contract: "契約"

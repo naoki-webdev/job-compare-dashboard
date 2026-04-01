@@ -1,0 +1,34 @@
+ja:
+  time:
+    formats:
+      csv: "%Y/%m/%d %H:%M"
+  csv:
+    headers:
+      id: "ID"
+      company_name: "会社名"
+      position: "職種"
+      status: "選考ステータス"
+      work_style: "働き方"
+      employment_type: "雇用形態"
+      salary_min: "年収下限"
+      salary_max: "年収上限"
+      tech_stack: "技術スタック"
+      location: "勤務地"
+      notes: "メモ"
+      score: "スコア"
+      created_at: "作成日時"
+      updated_at: "更新日時"
+    enums:
+      status:
+        interested: "気になる"
+        applied: "応募済み"
+        interviewing: "面接中"
+        offer: "内定"
+        rejected: "見送り"
+      work_style:
+        full_remote: "フルリモート"
+        hybrid: "ハイブリッド"
+        onsite: "出社"
+      employment_type:
+        full_time: "正社員"
+        contract: "契約"

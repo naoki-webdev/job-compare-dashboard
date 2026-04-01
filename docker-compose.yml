@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: job_compare_development
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d job_compare_development"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    command: bash -lc "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0"
+    environment:
+      RAILS_ENV: development
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE: job_compare_development
+      FRONTEND_ORIGIN: http://localhost:5173
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - bundle_data:/usr/local/bundle
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  bundle_data:
