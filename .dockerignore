@@ -1,0 +1,11 @@
+.git
+.github
+node_modules
+dist
+log
+tmp
+storage
+coverage
+docs
+q
+q.pub
