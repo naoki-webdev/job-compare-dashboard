@@ -1,0 +1,82 @@
+module JobDrafts
+  class RuleBasedParser
+    def initialize(text:, url:, masters:)
+      @text = text.to_s
+      @url = url.to_s
+      @masters = masters
+    end
+
+    def call
+      {
+        "company_name" => extract_company_name,
+        "salary_min_jpy" => salary_pair&.first,
+        "salary_max_jpy" => salary_pair&.last,
+        "work_style" => extract_work_style,
+        "tech_stacks" => match_master_names(@masters[:tech_stacks]),
+        "location" => match_master_names(@masters[:locations]).first,
+        "score_estimate" => estimate_score,
+        "pros" => pros,
+        "cons" => cons,
+        "questions" => questions
+      }
+    end
+
+    private
+
+    def extract_company_name
+      first_line = @text.each_line.map(&:strip).find { |line| line.length.positive? }
+      return nil unless first_line
+
+      first_line.sub(/(株式会社|有限会社|合同会社)/, "\\1").slice(0, 64)
+    end
+
+    def salary_pair
+      manyen_matches = @text.scan(/(\d{3,5})\s*万円?/).map { |m| m.first.to_i }
+      jpy_matches = @text.scan(/(\d{1,3}(?:,\d{3})+)\s*円/).map { |m| m.first.delete(",").to_i / 10_000 }
+      candidates = (manyen_matches + jpy_matches).uniq.select { |v| v.between?(300, 5_000) }
+      return nil if candidates.empty?
+
+      sorted = candidates.sort
+      [ sorted.first * 10_000, sorted.last * 10_000 ]
+    end
+
+    def extract_work_style
+      nil
+    end
+
+    def match_master_names(records)
+      records.filter_map do |record|
+        record.name if @text.include?(record.name)
+      end
+    end
+
+    def pros
+      matched_keyword_labels(@masters[:positive_keywords])
+    end
+
+    def cons
+      matched_keyword_labels(@masters[:negative_keywords])
+    end
+
+    def questions
+      Array(@masters[:interview_questions]).filter_map(&:body).uniq
+    end
+
+    def matched_keyword_labels(records)
+      Array(records).filter_map do |record|
+        next if record.pattern.blank?
+
+        record.label if @text.include?(record.pattern)
+      end.uniq
+    end
+
+    def estimate_score
+      return nil if pros.empty? && cons.empty?
+
+      base = 50
+      base += pros.size * 5
+      base -= cons.size * 6
+      base.clamp(0, 100)
+    end
+  end
+end
